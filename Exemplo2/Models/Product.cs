@@ -16,8 +16,12 @@ namespace Exemplo2.Models
         public string descricao { get; set; }
 
         [Required]
+        [StringLength(8, ErrorMessage = "O tamanho máximo do códiugo é de 8 caracteres")]
         public string codigo { get; set; }
 
         public decimal preco { get; set; }
+
+        [StringLength(80, ErrorMessage = "O tamanho máximo da url é 80 caracteres")]
+        public string url { get; set; }
     }
 }

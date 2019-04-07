@@ -181,6 +181,10 @@
     <Compile Include="Migrations\201904061702315_Initial.Designer.cs">
       <DependentUpon>201904061702315_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904061953047_AlteracaoEmProduto.cs" />
+    <Compile Include="Migrations\201904061953047_AlteracaoEmProduto.Designer.cs">
+      <DependentUpon>201904061953047_AlteracaoEmProduto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Exemplo2Context.cs" />
     <Compile Include="Models\Product.cs" />
@@ -274,6 +278,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904061702315_Initial.resx">
       <DependentUpon>201904061702315_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061953047_AlteracaoEmProduto.resx">
+      <DependentUpon>201904061953047_AlteracaoEmProduto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
