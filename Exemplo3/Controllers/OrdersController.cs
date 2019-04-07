@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Exemplo3.Models;
 using Exemplo3.br.com.correios.ws;
+using Exemplo3.CRMClient;
 
 namespace Exemplo3.Controllers
 {
@@ -18,6 +19,24 @@ namespace Exemplo3.Controllers
     public class OrdersController : ApiController
     {
         private Exemplo3Context db = new Exemplo3Context();
+
+        [ResponseType(typeof(string))]
+        [HttpGet]
+        [Route("cep")]
+        public IHttpActionResult ObtemCEP()
+        {
+            CRMRestClient crmClient = new CRMRestClient();
+            Customer customer = crmClient.GetCustomerByEmail(User.Identity.Name);
+
+            if (customer != null)
+            {
+                return Ok(customer.zip);
+            }
+            else
+            {
+                return BadRequest("Falha ao consultar o CRM");
+            }
+        }
 
         [ResponseType(typeof(string))]
         [HttpGet]
