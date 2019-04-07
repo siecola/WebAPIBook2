@@ -9,12 +9,38 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Exemplo3.Models;
+using Exemplo3.br.com.correios.ws;
 
 namespace Exemplo3.Controllers
 {
+    [Authorize]
+    [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
         private Exemplo3Context db = new Exemplo3Context();
+
+        [ResponseType(typeof(string))]
+        [HttpGet]
+        [Route("frete")]
+        public IHttpActionResult CalculaFrete()
+        {
+            string frete;
+
+            CalcPrecoPrazoWS correios = new CalcPrecoPrazoWS();
+
+            cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", "37002970", "1", 1, 30, 30, 30, 30, "N", 100, "S");
+
+            if (resultado.Servicos[0].Erro.Equals("0"))
+            {
+                frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
+                return Ok(frete);
+            }
+            else
+            {
+                return BadRequest("Código do erro: " + resultado.Servicos[0].Erro + "-" + resultado.Servicos[0].MsgErro);
+            }
+
+        }
 
         // GET: api/Orders
         public List<Order> GetOrders()
